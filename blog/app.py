@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template
 from blog.views.users import users_app
 from blog.views.articles import articles_app
