@@ -13,7 +13,7 @@ app.register_blueprint(auth_app, url_prefix='/auth')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-
+app.config["SECRET_KEY"] = "most-important-very-secret-key"
 
 db.init_app(app)
 login_manager.init_app(app)
