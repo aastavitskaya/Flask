@@ -3,9 +3,9 @@ import os
 class BaseConfig(object):
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///blog.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = "abcdefg123456"
+    SECRET_KEY = "lemon_sherbet"
 
 class DevConfig(BaseConfig):
     DEBUG = True

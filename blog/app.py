@@ -4,6 +4,9 @@ from blog.views.articles import articles_app
 from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
