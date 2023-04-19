@@ -14,8 +14,8 @@ app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 app.register_blueprint(auth_app, url_prefix='/auth')
 
-cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
-app.config.from_object(f"blog.config.{cfg_name}")
+config_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+app.config.from_object(f"blog.config.{config_name}")
 
 db.init_app(app)
 login_manager.init_app(app)
