@@ -3,6 +3,12 @@ from blog.views.users import users_app
 from blog.views.articles import articles_app
 from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
+import os
+from dotenv import load_dotenv
+from flask_migrate import Migrate
+
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -10,13 +16,12 @@ app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 app.register_blueprint(auth_app, url_prefix='/auth')
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-app.config["SECRET_KEY"] = "most-important-very-secret-key"
+config_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
+app.config.from_object(f"blog.config.{config_name}")
 
 db.init_app(app)
 login_manager.init_app(app)
+migrate = Migrate(app, db)
 
 @app.cli.command("init-db")
 def init_db():
