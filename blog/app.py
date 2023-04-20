@@ -5,6 +5,8 @@ from blog.models.database import db
 from blog.views.auth import login_manager, auth_app
 import os
 from dotenv import load_dotenv
+from flask_migrate import Migrate
+
 
 load_dotenv()
 
@@ -19,6 +21,7 @@ app.config.from_object(f"blog.config.{config_name}")
 
 db.init_app(app)
 login_manager.init_app(app)
+migrate = Migrate(app, db)
 
 @app.cli.command("init-db")
 def init_db():
