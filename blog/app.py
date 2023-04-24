@@ -40,8 +40,8 @@ def create_users():
     > done! created users: <User #1 'admin'> <User #2 'james'>
     """
     from blog.models import User
-    admin = User(username="admin", is_staff=True)
-    james = User(username="james")
+    admin = User(email="admin", is_staff=True)
+    james = User(email="james")
 
     db.session.add(admin)
     db.session.add(james)

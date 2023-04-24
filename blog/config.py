@@ -13,3 +13,5 @@ class DevConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
+
+WTF_CSRF_ENABLED = True
