@@ -28,3 +28,5 @@ class RegistrationForm(UserBaseForm):
     )
     confirm = PasswordField("Repeat Password")
     submit = SubmitField("Register")
+
+    

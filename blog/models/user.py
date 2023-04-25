@@ -7,6 +7,7 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(String(255), unique=True, nullable=False)
     email = db.Column(db.String(250), unique=True)
     is_staff = db.Column(db.Boolean, nullable=False, default=False)
     first_name = db.Column(db.String(255), nullable=True)
@@ -14,7 +15,7 @@ class User(db.Model, UserMixin):
     _password = db.Column(LargeBinary, nullable=True)
 
     def __repr__(self):
-        return f"<User #{self.id} {self.email!r}>"
+        return f"<User #{self.id} {self.username!r}>"
     
     @property
     def password(self):
