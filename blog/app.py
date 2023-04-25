@@ -6,11 +6,12 @@ from blog.views.auth import login_manager, auth_app
 import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate
-
+from blog.security import flask_bcrypt
 
 load_dotenv()
 
 app = Flask(__name__)
+
 
 app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
@@ -22,6 +23,7 @@ app.config.from_object(f"blog.config.{config_name}")
 db.init_app(app)
 login_manager.init_app(app)
 migrate = Migrate(app, db)
+flask_bcrypt.init_app(app)
 
 @app.cli.command("init-db")
 def init_db():
@@ -33,21 +35,20 @@ def init_db():
     print("done!")
 
 @app.cli.command("create-users")
-def create_users():
+def create_admin():
     """
     Run in your terminal:
     flask create-users
     > done! created users: <User #1 'admin'> <User #2 'james'>
     """
     from blog.models import User
+    
     admin = User(username="admin", is_staff=True)
-    james = User(username="james")
+    admin.password = os.environ.get("ADMIN_PASSWORD") or "adminpass"
 
     db.session.add(admin)
-    db.session.add(james)
     db.session.commit()
-
-    print("done! created users:", admin, james)
+    print("created admin:", admin)
 
 @app.route("/")
 def index():
