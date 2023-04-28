@@ -1,0 +1,29 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-187c71d2d52-30155a807f471d7a": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "blog.db",
+			"save-password": true,
+			"configuration": {
+				"database": "/home/anastasia/Desktop/Flask/Flask/blog/blog.db",
+				"url": "jdbc:sqlite:/home/anastasia/Desktop/Flask/Flask/blog/blog.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
