@@ -5,10 +5,11 @@ from sqlalchemy.orm import relationship
 
 
 class Tag(db.Model):
-    id = db.Column(Integer, primary_key=True)
-    name = db.Column(String(32), nullable=False, default="", server_default="")
+    id = Column(Integer, primary_key=True)
+    name = Column(String(32), nullable=False, default="", server_default="")
 
-    tags = relationship(
-        "Tag",
+    articles = relationship(
+        "Article",
         secondary=article_tag_association_table,
-        back_populates="articles",)
+        back_populates="tags",
+    )
