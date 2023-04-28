@@ -7,6 +7,7 @@ import os
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 from blog.security import flask_bcrypt
+from blog.views.authors import authors_app
 
 load_dotenv()
 
@@ -16,6 +17,7 @@ app = Flask(__name__)
 app.register_blueprint(users_app, url_prefix="/users")
 app.register_blueprint(articles_app, url_prefix="/articles")
 app.register_blueprint(auth_app, url_prefix='/auth')
+app.register_blueprint(authors_app, url_prefix="/authors")
 
 config_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.config.{config_name}")
