@@ -7,6 +7,7 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = "lemon_sherbet"
     WTF_CSRF_ENABLED = True
+    FLASK_ADMIN_SWATCH = 'sketchy'
 
 class DevConfig(BaseConfig):
     DEBUG = True
