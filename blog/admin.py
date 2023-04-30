@@ -4,23 +4,30 @@ from flask_admin.contrib.sqla import ModelView
 from blog import models
 from blog.models.database import db
 
-# from flask import redirect, url_for
+from flask import redirect, url_for
 from flask_login import current_user
-
-
 
 # Customized admin interface
 class CustomView(ModelView):
-    pass
-    # def is_accessible(self):
-    #     return current_user.is_authenticated and current_user.is_staff
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_staff
     
-    # def inaccessible_callback(self, name, **kwargs):
-    #     # redirect to login page if user doesn't have access
-    #     return redirect(url_for("auth_app.login"))
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect(url_for("auth_app.login"))
 
-# Create admin with custom base template
-admin = Admin(name="Blog Admin", template_mode="bootstrap4")
+class MyAdminIndexView(AdminIndexView):
+    @expose("/")
+    def index(self):
+        if not (current_user.is_authenticated and current_user.is_staff):
+            return redirect(url_for("auth_app.login"))
+        return super(MyAdminIndexView, self).index()
+
+admin = Admin(
+    name="Blog Admin",
+    index_view=MyAdminIndexView(),
+    template_mode="bootstrap4",
+)
 
 # Add views
 # admin.add_view(CustomView(models.Author, db.session, category="Models"))
@@ -44,18 +51,5 @@ class UserAdminView(CustomView):
     can_create = True
     can_edit = True
     can_delete = False
+
 admin.add_view(UserAdminView(models.User, db.session, category="Models"))
-
-# class MyAdminIndexView(AdminIndexView):
-#     @expose("/")
-#     def index(self):
-#         if not (current_user.is_authenticated and current_user.is_staff):
-#             return redirect(url_for("auth_app.login"))
-#         return super(MyAdminIndexView, self).index()
-
-# Create admin with custom props
-admin = Admin(
-    name="Blog Admin",
-    # index_view=MyAdminIndexView(),
-    template_mode="bootstrap4",
-)
