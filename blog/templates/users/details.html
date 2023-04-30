@@ -4,6 +4,7 @@
     User #{{ user.id }}
 {% endblock %}
 
+{% block body %}
 <h1>
     {{ user.username }}
 </h1>
@@ -14,3 +15,5 @@
 <div>
     <a href="{{ url_for('users_app.list') }}">Back to users list</a>
 </div>
+
+{% endblock %}
