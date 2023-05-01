@@ -9,6 +9,8 @@ from flask_migrate import Migrate
 from blog.security import flask_bcrypt
 from blog.views.authors import authors_app
 from blog.admin import admin
+from blog.api import init_api
+
 
 load_dotenv()
 
@@ -24,6 +26,7 @@ config_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.config.{config_name}")
 
 admin.init_app(app)
+api = init_api(app)
 db.init_app(app)
 login_manager.init_app(app)
 migrate = Migrate(app, db)
