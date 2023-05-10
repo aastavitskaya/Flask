@@ -18,3 +18,7 @@ class DevConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
+
+
+class ProductionConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = "sqlite:///blog.db"
